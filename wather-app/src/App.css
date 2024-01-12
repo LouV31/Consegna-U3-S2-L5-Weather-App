@@ -1,0 +1,9 @@
+.weatherIcon {
+    max-width: 100px;
+}
+.vertical-line {
+    width: 1px;
+    height: 80px;
+    background-color: white;
+    margin: 0px;
+}

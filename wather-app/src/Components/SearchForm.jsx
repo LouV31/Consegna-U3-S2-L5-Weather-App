@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Search as SearchIcon } from "react-bootstrap-icons";
+import { useNavigate } from "react-router-dom";
 const SearchForm = (props) => {
     const APIkey = "cbd447cc6fdb408a2bb30c2732042c0b";
 
@@ -8,6 +9,7 @@ const SearchForm = (props) => {
     const [location, setLocations] = useState(null);
     const [lat, setLat] = useState();
     const [lon, setLon] = useState();
+    const navigate = useNavigate();
     const URLLatLon = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${APIkey}`;
 
     const fetchLocation = async () => {
@@ -21,6 +23,7 @@ const SearchForm = (props) => {
                 setLon(locationObj[0].lon);
                 props.getLat(locationObj[0].lat);
                 props.getLon(locationObj[0].lon);
+                navigate(`/${locationObj[0].name}`);
             }
         } catch (error) {
             console.log(error);

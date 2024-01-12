@@ -12,7 +12,7 @@ const WeatherShown = (props) => {
     const APIkey = "cbd447cc6fdb408a2bb30c2732042c0b";
     const URLWeather = `http://api.openweathermap.org/data/2.5/forecast?lat=${props.lat}&lon=${props.lon}&appid=${APIkey}`;
     const [data, setData] = useState(null);
-    const [weatherIcon, setWeatherIcon] = useState(clear_icon);
+    //const [weatherIcon, setWeatherIcon] = useState(clear_icon);
 
     const fetchCityWeather = async () => {
         try {
@@ -21,7 +21,7 @@ const WeatherShown = (props) => {
                 let cityObj = await response.json();
                 console.log(cityObj);
                 setData(cityObj);
-                if (cityObj.list[0].weather[0].icon === "01d" || cityObj.list[0].weather[0].icon === "01n") {
+                /* if (cityObj.list[0].weather[0].icon === "01d" || cityObj.list[0].weather[0].icon === "01n") {
                     setWeatherIcon(clear_icon);
                 } else if (cityObj.list[0].weather[0].icon === "02d" || cityObj.list[0].weather[0].icon === "02n") {
                     setWeatherIcon(cloud_icon);
@@ -37,7 +37,7 @@ const WeatherShown = (props) => {
                     setWeatherIcon(snow_icon);
                 } else {
                     setWeatherIcon(clear_icon);
-                }
+                } */
             }
         } catch (error) {
             console.log(error);
@@ -64,7 +64,10 @@ const WeatherShown = (props) => {
                                         {parseInt(data.list[0].main.temp - 273.15) + "°C"}{" "}
                                     </h3>
                                     <div className="vertical-line "></div>
-                                    <img className="weatherIcon" src={weatherIcon} />
+                                    <img
+                                        className="weatherIcon"
+                                        src={`https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png `}
+                                    />
                                 </div>
                                 <div className="d-flex justify-content-between px-5 w-75 mt-5 pt-5">
                                     <div className="d-flex align-items-center">
@@ -90,3 +93,6 @@ const WeatherShown = (props) => {
     );
 };
 export default WeatherShown;
+
+/* https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png */
+/* https://openweathermap.org/img/wn/10d@2x.png */

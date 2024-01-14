@@ -7,6 +7,7 @@ import rain_icon from "../Assets/rain.png";
 import snow_icon from "../Assets/snow.png";
 import wind_icon from "../Assets/wind.png";
 import humidity_icon from "../Assets/humidity.png";
+import Forecast from "./Forecast";
 
 const WeatherShown = (props) => {
     const APIkey = "cbd447cc6fdb408a2bb30c2732042c0b";
@@ -72,7 +73,9 @@ const WeatherShown = (props) => {
                                 <div className="d-flex justify-content-between px-5 w-75 mt-5 pt-5">
                                     <div className="d-flex align-items-center">
                                         <img src={wind_icon} />
-                                        <p className="text-white mb-0 ms-2">{data.list[0].wind.speed + "Km/h"}</p>
+                                        <p className="text-white mb-0 ms-2">
+                                            {parseInt(data.list[0].wind.speed) + "Km/h"}
+                                        </p>
                                     </div>
                                     <div className="d-flex align-items-center">
                                         <img src={humidity_icon} />
@@ -82,6 +85,7 @@ const WeatherShown = (props) => {
                             </div>
                         </Col>
                     </Row>
+                    <Forecast title="Hourly forecast" weatherData={data.list} />
                 </Container>
             ) : (
                 ""

@@ -6,9 +6,7 @@ const SearchForm = (props) => {
     const APIkey = "cbd447cc6fdb408a2bb30c2732042c0b";
 
     const [city, setCity] = useState("");
-    const [location, setLocations] = useState(null);
-    const [lat, setLat] = useState();
-    const [lon, setLon] = useState();
+
     const navigate = useNavigate();
     const URLLatLon = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${APIkey}`;
 
@@ -18,9 +16,6 @@ const SearchForm = (props) => {
             if (response.ok) {
                 let locationObj = await response.json();
                 console.log(locationObj[0]);
-                setLocations(locationObj[0]);
-                setLat(locationObj[0].lat);
-                setLon(locationObj[0].lon);
                 props.getLat(locationObj[0].lat);
                 props.getLon(locationObj[0].lon);
                 navigate(`/${locationObj[0].name}`);

@@ -16,10 +16,6 @@ const Home = () => {
         setLon(lon);
     };
 
-    useEffect(() => {
-        console.log("Home ", lat);
-        console.log("Home ", lon);
-    }, [lat, lon]);
     return (
         <BrowserRouter>
             <Container className="weather-bg  py-4" style={{ maxWidth: "768px" }}>

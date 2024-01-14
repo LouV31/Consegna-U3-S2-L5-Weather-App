@@ -85,7 +85,7 @@ const WeatherShown = (props) => {
                             </div>
                         </Col>
                     </Row>
-                    <Forecast title="Hourly forecast" weatherData={data.list} />
+                    <Forecast title="Hourly forecast" weatherData={data} />
                 </Container>
             ) : (
                 ""

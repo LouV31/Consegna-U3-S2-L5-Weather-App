@@ -18,12 +18,16 @@ const Home = () => {
 
     return (
         <BrowserRouter>
-            <Container className="weather-bg  py-4" style={{ maxWidth: "768px" }}>
-                <SearchForm getLat={getLat} getLon={getLon} />
-                <Routes>
-                    <Route path="/" element={<></>} />
-                    <Route path="/:name" element={<WeatherShown lat={lat} lon={lon} />} />
-                </Routes>
+            <Container className="weather-bg  py-4 ">
+                <Row className="justify-content-center">
+                    <Col className="col-6">
+                        <SearchForm getLat={getLat} getLon={getLon} />
+                        <Routes>
+                            <Route path="/" element={<></>} />
+                            <Route path="/:name" element={<WeatherShown lat={lat} lon={lon} />} />
+                        </Routes>
+                    </Col>
+                </Row>
             </Container>
         </BrowserRouter>
     );

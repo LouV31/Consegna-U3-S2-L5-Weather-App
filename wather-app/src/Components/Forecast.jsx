@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { format } from "date-fns-tz";
+import { getDay } from "date-fns";
+import HourlyForecast from "./HourlyForecast";
+import DailyForecast from "./DailyForecast";
 
 const Forecast = (props) => {
+    const [filteredDay, setFilteredDay] = useState(null);
     const hourlyForecastsToDisplay = props.weatherData.list.slice(0, 5);
     const getDate = (dt, timezone) => {
         const utc_seconds = dt + timezone;
@@ -11,36 +15,35 @@ const Forecast = (props) => {
         const formattedTime = format(local_date, "HH:mm", { timeZone: "UTC" });
         return formattedTime;
     };
+
+    const customDate = () => {
+        let daysArr = [];
+        let daysArrNumber = [];
+        const toDay = new Date().getDate();
+        props.weatherData.list.forEach((daysInterval) => {
+            console.log("DAY: ", daysInterval);
+            const daysNumber = daysInterval.dt_txt.split(" ")[0].split("-")[2];
+            const h12 = daysInterval.dt_txt.split(" ")[1].split(":")[0];
+            console.log("NEXT DAY: ", daysNumber);
+
+            if (!daysArrNumber.includes(daysNumber) && h12 == "12") {
+                daysArr.push(daysInterval);
+                daysArrNumber.push(daysNumber);
+            }
+        });
+
+        setFilteredDay(daysArr);
+        console.log("DAYSARR", daysArr);
+    };
+
+    useEffect(() => {
+        customDate();
+    }, [props.weatherData]);
+
     return (
         <>
-            <h3 className="text-white">{props.title}</h3>
-            <Row className="row-cols-5">
-                {hourlyForecastsToDisplay.map((singleForecast, index) => {
-                    console.log(singleForecast);
-                    return (
-                        <Col key={index + 1}>
-                            <div className="d-flex flex-column align-items-center border rounded-4">
-                                <img
-                                    src={`https://openweathermap.org/img/wn/${singleForecast.weather[0].icon}@2x.png `}
-                                />
-                                <p className="text-white">{parseInt(singleForecast.main.temp - 273.15) + "°C"}</p>
-                                <p className="text-white">
-                                    {console.log(
-                                        "myOBJ:",
-                                        hourlyForecastsToDisplay,
-                                        "dt: ",
-                                        singleForecast.dt,
-                                        "timezone: ",
-                                        props.weatherData.city.timezone
-                                    )}
-                                    {getDate(singleForecast.dt, props.weatherData.city.timezone)}
-                                    {/*  {singleForecast.dt_txt.split(" ")[1].split(":").slice(0, 2).join(":")} */}
-                                </p>
-                            </div>
-                        </Col>
-                    );
-                })}
-            </Row>
+            <HourlyForecast weatherData={hourlyForecastsToDisplay} getDate={getDate} city={props.weatherData.city} />
+            <DailyForecast weatherData={filteredDay} getDate={getDate} city={props.weatherData.city} />
         </>
     );
 };

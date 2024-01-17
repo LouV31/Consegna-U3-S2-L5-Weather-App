@@ -32,22 +32,27 @@ const SearchForm = (props) => {
 
     return (
         <header className="mb-5">
-            <Row sm={12}>
-                <Col>
-                    <div className="d-flex justify-content-between ">
-                        <Form.Group className=" w-75 " controlId="formBasicEmail">
-                            <Form.Control
-                                type="text"
-                                placeholder="New York, London, Milan"
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
-                            />
-                        </Form.Group>
+            <Row>
+                <Col className="col-10">
+                    <Form.Group className="" controlId="formBasicEmail">
+                        <Form.Control
+                            type="text"
+                            placeholder="New York, London, Milan"
+                            value={city}
+                            onChange={(e) => setCity(e.target.value)}
+                            className="transparent"
+                        />
+                    </Form.Group>
+                </Col>
+                <Col className="col-2  ">
+                    <div className="d-flex justify-content-end">
                         <Button
-                            className="btn btn-transparent ms-5 rounded-circle d-flex justify-content-center align-items-center"
+                            variant="transparent"
+                            className="btn btn-transparent border-white rounded-circle d-flex align-items-center p-0 justify-content-center"
+                            style={{ width: "37px", height: "37px" }}
                             onClick={handleSubmint}
                         >
-                            <SearchIcon />
+                            <SearchIcon className="text-white" />
                         </Button>
                     </div>
                 </Col>

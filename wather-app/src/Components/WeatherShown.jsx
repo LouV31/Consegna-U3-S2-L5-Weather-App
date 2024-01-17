@@ -53,50 +53,50 @@ const WeatherShown = (props) => {
     }, [props.lat, props.lon]);
 
     return (
-        <main>
+        <main className="pt-5">
             {data ? (
-                <Container>
-                    <Row className="row-cols-1 row-cols-lg-2 justify-content-center">
+                <>
+                    <Row className="row-cols-1 justify-content-center gy-5 mb-5">
                         <Col>
-                            <div className="d-flex flex-column align-items-center mt-5 pt-5">
-                                <h1 className="text-white display-1 fw-normal">{data.city.name}</h1>
-                                <div className="d-flex align-items-center w-75 justify-content-between px-5 mt-5 pt-3 mb-5">
-                                    <h3 className="text-white display-3 fw-normal">
-                                        {parseInt(data.list[0].main.temp - 273.15) + "°C"}{" "}
-                                    </h3>
-                                    <div className="vertical-line "></div>
-                                    <img
-                                        className="weatherIcon"
-                                        src={`https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png `}
-                                    />
-                                </div>
-                                <div className="d-flex justify-content-between px-5 w-75 mt-5 pt-5">
-                                    <div className="d-flex align-items-center">
-                                        <img src={wind_icon} />
-                                        <p className="text-white mb-0 ms-2">
-                                            {parseInt(data.list[0].wind.speed) + "Km/h"}
-                                        </p>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <img src={humidity_icon} />
-                                        <p className="text-white mb-0 ms-2">{data.list[0].main.humidity + "%"}</p>
-                                    </div>
-                                </div>
+                            <div>
+                                <h1 className="text-white display-6 fw-normal text-center">{data.city.name}</h1>
                             </div>
+                        </Col>
+                        <Col className="col-4 px-3 ">
+                            <div className="d-flex justify-content-between pb-2 border-bottom border-white">
+                                <h3 className="text-white display-5 fw-normal mb-0">
+                                    {parseInt(data.list[0].main.temp - 273.15) + "°C"}
+                                </h3>
+
+                                <img
+                                    className="weatherIcon"
+                                    src={`https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png `}
+                                />
+                            </div>
+                            <Row className="pt-4">
+                                <Col className="col-6 border-end border-white">
+                                    <div className="d-flex align-items-center">
+                                        <img src={wind_icon} style={{ width: "25px" }} />
+                                        <span className="text-white ms-2">
+                                            {parseInt(data.list[0].wind.speed) + "Km/h"}
+                                        </span>
+                                    </div>
+                                </Col>
+                                <Col className="col-6">
+                                    <div className="d-flex align-items-center">
+                                        <img src={humidity_icon} style={{ width: "25px" }} />
+                                        <span className="text-white ms-2">{data.list[0].main.humidity + "%"}</span>
+                                    </div>
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                     <Forecast title="Hourly forecast" weatherData={data} />
-                </Container>
+                </>
             ) : (
                 ""
             )}
-
-            {/* <h1>{cityObj.name}</h1> */}
-            {/* <img src={}/> */}
         </main>
     );
 };
 export default WeatherShown;
-
-/* https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png */
-/* https://openweathermap.org/img/wn/10d@2x.png */
